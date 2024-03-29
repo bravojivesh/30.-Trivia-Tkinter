@@ -1,7 +1,9 @@
 import requests
 
+#==============================================================================
 #w1
 # api=requests.get(url="https://opentdb.com/api.php?amount=10&type=boolean")
+#==============================================================================
 
 #w2
 api_params={"amount":10, "type": "boolean"}
@@ -13,6 +15,7 @@ print (api_json)
 question_data=api_json["results"]
 print (question_data)
 
+#==============================================================================
 # question_data = [
 #     {
 #         "category": "Science: Computers",
