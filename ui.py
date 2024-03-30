@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-import time
 
 from quiz_brain import QuizBrain
 
@@ -17,8 +16,8 @@ class QuizInterface:
         self.window.title("Jose Quiz")
         self.window.config(pady=20, padx=20,background=THEME_COLOR)
 
-        # self.window.minsize(width=400,height=500) ## no need to define the window. We can directly work on
-        ## canvas and use grid
+        # self.window.minsize(width=400,height=500) ## no need to define the window. We can directly start using
+        ## "canvas" and use "grid"
 
         self.label_score = Label(text="Score: 0", fg="white", background=THEME_COLOR,
                                  font=("Arial",20,"italic"))
@@ -45,26 +44,28 @@ class QuizInterface:
         if self.quiz_brain_obj_1.still_has_questions() == False:
             messagebox.showinfo("INFO", "ALL QUESTIONS ATTEMPTED! BYE")
             self.window.destroy()
+            ##if there are no more questions. Show a message with OK button and close the window-- I came up with this :)
         else:
             self.text_for_question=self.quiz_brain_obj_1.show_question1()
             self.canvas.itemconfig(self.question_text_in_cavas,text=self.text_for_question)
-            # self.question_text_in_cavas = self.canvas.create_text(150, 125,text=self.text_for_question,
-            #                                                       width=280,fill="black", font=("Arial", 12, "italic"))
 
 
+    def change_color_and_next_question(self):
+        self.canvas.config(bg=self.quiz_brain_obj_1.color) ##the color comes from quiz_brain module
+        self.window.after(500,lambda:self.canvas.config(bg="White"))
+        self.window.after(800,lambda :self.start_q())
+        ##NOTE: need to put double the time for start_q, because "after()" function is non-blocking. So without the double time
+        ## it schedules the canvas color change operation and then immediately calls self.start_q().
 
     def true_button_log(self):
         self.quiz_brain_obj_1.check_answer("True")
-        self.start_q()
+        self.change_color_and_next_question()
         self.label_score.config(text=f"Score: {self.quiz_brain_obj_1.score}")
 
     def false_button_log(self):
         self.quiz_brain_obj_1.check_answer("False")
-        self.start_q()
+        self.change_color_and_next_question()
         self.label_score.config(text=f"Score: {self.quiz_brain_obj_1.score}")
-
-
-
 
 
 

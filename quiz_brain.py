@@ -41,6 +41,7 @@ class QuizBrain:
             self.score += 1
             print("You got it right!")
         else:
+            self.color="Red"
             print("That's wrong.")
 
         print(f"Your current score is: {self.score}/{self.question_number}")

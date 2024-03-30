@@ -6,7 +6,10 @@ import requests
 #==============================================================================
 
 #w2
-api_params={"amount":10, "type": "boolean"}
+## the main URL is: https://opentdb.com/api_config.php
+## API URL looks like this for any category, 10 questions, True/False : "https://opentdb.com/api.php?amount=10&type=boolean"
+
+api_params={"amount":15, "type": "boolean", "category":""}
 api=requests.get(url="https://opentdb.com/api.php",params=api_params)
 
 api_json=api.json()
